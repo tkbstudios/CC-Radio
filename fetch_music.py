@@ -55,7 +55,7 @@ def download_playlists(playlist_urls, output_dir="unconverted"):
     """Download playlist from URLs to unconverted dir"""
     playlists_count = len(playlist_urls)
     print(f"DOWNLOADING {playlists_count} playlists..")
-    
+
     time.sleep(2)
 
     if not os.path.exists(output_dir):
