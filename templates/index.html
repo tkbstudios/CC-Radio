@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC: Radio - Minecraft Radio Station</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <center><h1><b>THIS IS A BETA PROJECT, THINGS MAY BREAK</b></h1></center>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="mt-5">Welcome to CC: Radio</h1>
+                <p class="lead">The ultimate radio station for CC: Tweaked!</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>To listen to CC: Radio in Minecraft, connect to our server using the following commands:</p>
+                <pre>pastebin run 2hqWuAGY<br></pre>
+                <pre>ccradio<br></pre>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>What Exactly is CC: Radio?</p>
+                CC: Radio allows you to play music tracks in ComputerCraft or CC:Tweaked without downloading them!<br>
+                The script requests an audio file from our servers and plays it!<br>
+                the advantage of this is that you don't need to have all the audio downloaded on your floppy disk or computer.<br>
+            </div>
+            <div class="col-md-12">
+                <p>Is the music licensed?</p>
+                No, we selected tracks where the audio is not licensed<br>
+                {{ available_tracks }} available music tracks with a total size of {{ radio_folder_size }}GB<br>
+                {{ tracks_waiting_to_wav }} music tracks waiting for conversion to wav<br>
+                {{ tracks_waiting_to_dfpwm }} music tracks waiting for conversion to dfpwm<br>
+                {{ tracks_waiting_added_to_radio }} music tracks waiting to get added to the radio<br>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
