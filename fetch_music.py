@@ -1,12 +1,13 @@
-import requests
 import os
-from dotenv import load_dotenv
 import sys
 import time
+import requests
+from dotenv import load_dotenv
 
 load_dotenv()
 
 def get_bearer():
+    """Get Bearer token from spotify API"""
     url = "https://accounts.spotify.com/api/token"
     headers = {
         "Content-Type": "application/x-www-form-urlencoded"
@@ -26,6 +27,7 @@ def get_bearer():
         return response.json()
 
 def search_playlists(query, bearer_token):
+    """Search for uncopyrighted song playlists"""
     url = "https://api.spotify.com/v1/search"
     headers = {
         "Authorization": f"Bearer {bearer_token}"
@@ -36,10 +38,11 @@ def search_playlists(query, bearer_token):
         "limit": 50  # You can set the limit to a number between 1 and 50
     }
 
-    response = requests.get(url, headers=headers, params=params)
+    response = requests.get(url, headers=headers, params=params, timeout=20)
     return response.json()
 
 def extract_playlist_urls(search_results):
+    """Get playlist URLs from search results"""
     playlist_urls = []
     playlists = search_results["playlists"]["items"]
 
@@ -49,6 +52,7 @@ def extract_playlist_urls(search_results):
     return playlist_urls
 
 def download_playlists(playlist_urls, output_dir="unconverted"):
+    """Download playlist from URLs to unconverted dir"""
     playlists_count = len(playlist_urls)
     print(f"DOWNLOADING {playlists_count} playlists..")
     
@@ -60,8 +64,9 @@ def download_playlists(playlist_urls, output_dir="unconverted"):
     for playlist_url in playlist_urls:
         try:
             os.system(f"spotdl {playlist_url} --output {output_dir}")
-        except Exception:
-            pass
+        except OSError:
+            print(f"Error downloading {playlist_url}")
+            continue
 
 bearer_token = get_bearer()['access_token']
 

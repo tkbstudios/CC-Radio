@@ -11,7 +11,12 @@ for tracktoconvname in UNCONVERTED_MP3_TRACKS:
 
     print(f"Converting {track_name_no_extension}")
     try:
-        output_filename = track_name_no_extension.replace(" ", "").replace("-", "").replace("_", "").replace("," ,"")
+        output_filename = (
+            track_name_no_extension.replace(" ", "")
+            .replace("-", "")
+            .replace("_", "")
+            .replace("," ,"")
+            )
         input_stream = ffmpeg.input(f"unconverted/{tracktoconvname}")
         output_stream = ffmpeg.output(input_stream, f"converted_to_wav/{output_filename}.wav")
         ffmpeg.run(output_stream, overwrite_output=True)
@@ -19,7 +24,7 @@ for tracktoconvname in UNCONVERTED_MP3_TRACKS:
         print(f"Converted {track_name_no_extension}!")
     except KeyboardInterrupt:
         continue
-    except Exception:
+    except ffmpeg.Error:
         print(f"Error converting {tracktoconvname}")
         os.remove(os.path.join("unconverted/", tracktoconvname))
         print(f"Removed {tracktoconvname}!")
@@ -37,11 +42,17 @@ for tracktoconvname in unconverted_wav_tracks:
     splitted_track_name = tracktoconvname.split(".")
     splitted_track_length = len(splitted_track_name)
     track_name_no_extension = tracktoconvname.replace(f".wav", "")
-    output_filename = track_name_no_extension.replace(" ", "").replace("-", "").replace("_", "").replace("," ,"")
+    output_filename = (
+        track_name_no_extension
+        .replace(" ", "")
+        .replace("-", "")
+        .replace("_", "")
+        .replace("," ,"")
+        )
     print(f"Converting {track_name_no_extension}")
 
-    input_file = f"converted_to_wav/{track_name_no_extension}.wav"
-    output_file = f"converted_to_dfpwm/{track_name_no_extension}.dfpwm"
+    input_file = "converted_to_wav/" + track_name_no_extension + ".wav"
+    output_file = "converted_to_dfpwm/" + track_name_no_extension + ".dfpwm"
 
     ffmpeg.input(input_file).output(
             output_file,
@@ -50,7 +61,7 @@ for tracktoconvname in unconverted_wav_tracks:
             ar=48000,
             ac=1
         ).run(quiet=True, overwrite_output=True)
-    
+
     print(f"Converted {track_name_no_extension}!")
     converted_path = output_file
     if os.path.exists(input_file):
